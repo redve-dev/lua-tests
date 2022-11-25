@@ -1,6 +1,25 @@
 #include <stdio.h>
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
+
+int call_lua_add(lua_State* L, int a, int b){
+	lua_getglobal(L, "add");
+	lua_pushnumber(L, a);
+	lua_pushnumber(L, b);
+	lua_call(L, 2, 1);
+	int sum = lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	return sum;
+}
 
 int main(){
-	printf("Hello\n");
+	lua_State* L;
+	L = luaL_newstate();
+	luaL_openlibs(L);
+	luaL_dofile(L, "test.lua");
+	int sum = call_lua_add(L, 5, 3);
+	printf("%d\n", sum);
+	lua_close(L);
 	return 0;
 }
