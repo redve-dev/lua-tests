@@ -28,7 +28,8 @@ lua_State* setup_lua(){
 int main(){
 	lua_State* L = setup_lua();
 	const char* api="https://steamcommunity.com/market/priceoverview/?appid=730&currency=3&market_hash_name=Fracture%20Case";
-	call_lua_http_request(L, api);
+	const char* json = call_lua_http_request(L, api);
+	call_lua_json_parser(L, json);
 	lua_close(L);
 	return 0;
 }
