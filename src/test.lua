@@ -8,9 +8,6 @@ make_request = function(api)
 	return body
 end
 
-local api="https://steamcommunity.com/market/priceoverview/?appid=730&currency=3&market_hash_name=Fracture%20Case"
-local result = make_request(api)
-
 print_json = function(data)
 	local json_lib = require "lunajson"
 	local arr=json_lib.decode(data)
